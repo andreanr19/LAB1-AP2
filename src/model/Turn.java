@@ -12,12 +12,12 @@ public class Turn {
 	private boolean status;
 	private LocalTime turnHour;
 	private LocalDate turnDate;
-
+	private boolean attended;
 //	relacion
 	private User user;
 
 	public Turn(String turno, int firstNumber, int secondNumber, char letter, boolean status, LocalTime turnHour,
-			LocalDate turnDate) {
+			LocalDate turnDate, boolean attended) {
 		this.turno = turno;
 		this.firstNumber = firstNumber;
 		this.secondNumber = secondNumber;
@@ -25,7 +25,7 @@ public class Turn {
 		this.status = status;
 		this.turnHour = turnHour;
 		this.turnDate = turnDate;
-
+		this.attended=false;
 	}
 
 	public User getUser() {
@@ -90,6 +90,14 @@ public class Turn {
 
 	public void setTurnDate(LocalDate turnDate) {
 		this.turnDate = turnDate;
+	}
+
+	public boolean isAttended() {
+		return attended;
+	}
+
+	public void setAttended(boolean attended) {
+		this.attended = attended;
 	}
 	
 
