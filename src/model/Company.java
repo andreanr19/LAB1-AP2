@@ -16,6 +16,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 
 import exceptions.IncompleteInformationException;
 import exceptions.TurnsTypeNonExistent;
@@ -1374,9 +1375,64 @@ public class Company implements Serializable {
 		Collections.sort(registeredUsers,u);
 	}
 	
+	public void sortByPhone() {
+		PhoneComparator pc= new PhoneComparator();
+		Collections.sort(registeredUsers,pc);
+	}
 	public void sortByid() {
 		idComparator idc= new idComparator();
 		Collections.sort(registeredUsers,idc);
 	}
+	
+	public void sortByIdComparator() {
+		Comparator<User> cid= new Comparator<User>() {
+			@Override
+			public int compare(User u1, User u2) {
+				int comp=0;
+				if(u1.getId()<u2.getId()) {
+					comp=-1;
+				}else if(u1.getId()>u2.getId()) {
+					comp=1;
+				}else {
+					comp=0;
+				}return comp;
+			}
+		};
+		Collections.sort(registeredUsers,cid);
+	}
+	public void orderBySelectionSort() {
+		
+		for(int i=0;i< registeredUsers.size();i++) {
+			User aux= registeredUsers.get(i);
+			int j=i-1;
+			while(j>=0 && registeredUsers.get(j).compareTo(aux)>0) {
+				registeredUsers.set(j+1, registeredUsers.get(j));
+				j= j-1;
+			}
+			registeredUsers.set(j+1, aux);
+		}
+	}
+	
+	public void orderByInsertion() {
+		for(int i=0; i< registeredUsers.size();i++) {
+			User aux = registeredUsers.get(i);
+			int j= i-1;
+			while(j>0 && registeredUsers.get(j).compareTo(aux)>0) {
+				registeredUsers.set(j+1, registeredUsers.get(j));
+				j= j-1;
+				
+			}
+			registeredUsers.set(j+1, aux);
+		}
+	}
+
+	public String getArchives() {
+		return archives;
+	}
+
+	public void setArchives(String archives) {
+		this.archives = archives;
+	}
+	
 
 }

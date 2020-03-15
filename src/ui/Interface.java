@@ -56,7 +56,7 @@ public class Interface {
 	public void showMenu() {
 		int read = 0;
 
-		while (read != 11) {
+		while (read != 16) {
 			showOptions();
 			read = input.nextInt();
 			input.nextLine();
@@ -235,6 +235,31 @@ public class Interface {
 				} catch (IOException | UserNotFoundException e) {
 					e.printStackTrace();
 				}
+				break;
+			case 10:
+				System.out.println(c.showRegisteredUsers());
+				break;
+			case 11:
+				c.orderUsersByBubbleSort();
+				System.out.println(c.showRegisteredUsers());
+				break;
+			case 12:
+				c.sortByIdComparator();
+				System.out.println(c.showRegisteredUsers());
+				break;
+			case 13: 
+				c.sortByPhone();
+				System.out.println(c.showRegisteredUsers());
+				break;
+			case 14:
+				c.orderBySelectionSort();
+				System.out.println(c.showRegisteredUsers());
+				break;
+			case 15:
+				c.orderByInsertion();
+				System.out.println(c.showRegisteredUsers());
+			case 16:
+				c.serializableUser();
 			}
 		}
 	}
@@ -255,11 +280,17 @@ public class Interface {
 		System.out.println("7.To serialize information");
 		System.out.println("8.To generate users");
 		System.out.println("9.To generate report of the registered Users");
-
+		System.out.println("10.To see registered users");
+		System.out.println("11.To order users by name with bubble sort method");
+		System.out.println("12.To order users by id");
+		System.out.println("13.To order users by phone number");
+		System.out.println("14.To order users by selection method ");
+		System.out.println("15.To order users by insertion method");
+		System.out.println("16.To exit");
 		System.out.println(
 				(tiempoactual.getCurrentHour() + diferenciah) + ":" + (tiempoactual.getCurrentMinute() + diferenciam)
 						+ ":" + (tiempoactual.getCurrentSecond() + diferencias));
-		System.out.println("bryan");
+		
 	}
 
 }
