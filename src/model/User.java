@@ -1,22 +1,24 @@
 package model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
-public class User {
+public class User implements Comparable<User>, Serializable{
 
 	private int id;
 	private String name;
 	private String lastName;
-	private int phone;
+	private String phone;
 	private String address;
 	private DocumentType documentType;
 	private String documentNumber;
 
 	private ArrayList<Turn> turnsUser;
+	private static final long serialVersionUID = 1L;
 
-	public User(int id, String name, String lastName, int phone, String address, DocumentType documentType,
+	public User(int id, String name, String lastName, String phone, String address, DocumentType documentType,
 			String documentNumber) {
 
 		this.id = id;
@@ -53,11 +55,11 @@ public class User {
 		this.lastName = lastName;
 	}
 
-	public int getPhone() {
+	public String getPhone() {
 		return phone;
 	}
 
-	public void setPhone(int phone) {
+	public void setPhone(String phone) {
 		this.phone = phone;
 	}
 
@@ -94,8 +96,14 @@ public class User {
 	}
 
 	public void addTurn(String turno, int firstNumber, int secondNumber, char letter, boolean status,
-			LocalTime turnHour, LocalDate turnDate, boolean attended) {
-		Turn newTurn = new Turn(turno, firstNumber, secondNumber, letter, status, turnHour, turnDate, attended);
+			LocalTime turnHour, LocalDate turnDate, boolean attended, TurnType myType) {
+		Turn newTurn = new Turn(turno, firstNumber, secondNumber, letter, status, turnHour, turnDate, attended, myType);
+		turnsUser.add(newTurn);
+	}
+
+	public void addTurn(String turno, int firstNumber, int secondNumber, char letter, boolean status, boolean attended,
+			TurnType myType) {
+		Turn newTurn = new Turn(turno, firstNumber, secondNumber, letter, status, attended, myType);
 		turnsUser.add(newTurn);
 	}
 
@@ -120,7 +128,7 @@ public class User {
 	public void toAttendAnUser(boolean wasThere) {
 		boolean verify = false;
 
-		// el true del status significa que no han pasado por él en el llamado
+		// el true del status significa que no han pasado por ï¿½l en el llamado
 		for (int i = 0; i < turnsUser.size() && !verify; i++) {
 			if (turnsUser.get(i).getStatus() == true && turnsUser.get(i).isAttended() == false) {
 				if (wasThere == true) {
@@ -143,39 +151,44 @@ public class User {
 		}
 
 	}
-	
-	
-	public boolean getTheDueño(String turn) {
-		Turn theturn= null;
-		boolean yes=false;
-		for(int i=0;i<turnsUser.size() &&!yes;i++) {
-			if(turnsUser.get(i).getTurno().equals(turn)) {
-				theturn=turnsUser.get(i);
-				yes=true;
+
+	public boolean getTheDueÃ±o(String turn) {
+		Turn theturn = null;
+		boolean yes = false;
+		for (int i = 0; i < turnsUser.size() && !yes; i++) {
+			if (turnsUser.get(i).getTurno().equals(turn)) {
+				theturn = turnsUser.get(i);
+				yes = true;
 			}
 		}
 		return yes;
 	}
-	
+
 	public Turn getTheTurn(String nameTurn) {
-		Turn theTurn= null;
-		boolean yes=false;
-		for(int i=0;i<turnsUser.size() &&!yes;i++) {
-			if(turnsUser.get(i).getTurno().equals(nameTurn)) {
-				theTurn=turnsUser.get(i);
-				yes=true;
+		Turn theTurn = null;
+		boolean yes = false;
+		for (int i = 0; i < turnsUser.size() && !yes; i++) {
+			if (turnsUser.get(i).getTurno().equals(nameTurn)) {
+				theTurn = turnsUser.get(i);
+				yes = true;
 			}
 		}
 		return theTurn;
-		
+
 	}
-	
-	
-	
-	
-	
-	
-	
-	
+
+	@Override
+	public int compareTo(User u) {
+		
+		int comparator=0;
+		if(this.getName().compareToIgnoreCase(u.getName())>0) {
+			comparator=1;
+		}else if(this.getName().compareToIgnoreCase(u.getName())<0) {
+			comparator=-1;
+		}else {
+			comparator=0;
+		}
+		return comparator;
+	}
 
 }
